@@ -1,0 +1,70 @@
+## html
+<div class="node" style="transform: translate({{ x }}px, {{ y }}px)">
+  <sf-template path="Blackprint/nodes/template/header.sf"></sf-template>
+
+  <div class="content">
+    <div class="left-port">
+      <sf-template path="Blackprint/nodes/template/input-port.sf"></sf-template>
+    </div>
+
+    <div class="right-port">
+      <sf-template path="Blackprint/nodes/template/output-port.sf"></sf-template>
+    </div>
+  </div>
+
+  <sf-template path="Blackprint/nodes/template/other.sf"></sf-template>
+</div>
+
+## scss-global
+bpic-graphics-display-canvas {
+	.content{
+		margin-top: 0 !important;
+	}
+	canvas{
+		width: 280px;
+		max-height: 240px;
+		display: block;
+		border-bottom: 1px dashed white;
+		margin-bottom: 2px;
+	}
+}
+
+
+## js-global
+Blackprint.Sketch.registerInterface('BPIC/Pixi.js/Display/Canvas',
+class CanvasIFace extends Context.IFace.Canvas {
+	init(el){
+		super.init(el);
+
+		$(this.canvas).insertBefore(this.$el('.left-port')[0]);
+	}
+
+	// If current component is being used on multiple container
+	initClone(el){
+		var app = new PIXI.Renderer();
+		$(app.view).insertBefore($('.left-port', el)[0]);
+		app.resize(this.canvas.width, this.canvas.height);
+
+		let My = this;
+
+		// For destroying
+		el.app = app;
+		el.onPixiTicker = function(){
+			app.render(My.container);
+		}
+
+		this.app.ticker.add(el.onPixiTicker);
+	}
+
+	hotReloaded(){
+		this.initEvent();
+	}
+
+	destroyClone(el){
+		// Destroy cloned Pixi App
+		var el = $('canvas', el)[0];
+		el.app.destroy();
+
+		this.app.ticker.remove(el.onPixiTicker);
+	}
+});
