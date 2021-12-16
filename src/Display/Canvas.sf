@@ -16,7 +16,7 @@
 </div>
 
 ## scss-global
-bpic-graphics-display-canvas {
+bpic-pixi-js-display-canvas {
 	.content{
 		margin-top: 0 !important;
 	}
