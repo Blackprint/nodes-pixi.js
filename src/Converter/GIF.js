@@ -29,15 +29,16 @@ Context.IFace.GIF = class GIFIFace extends Blackprint.Interface {
 	init(){
 		let iface = this;
 		let node = this.node;
+		let {Input, IInput, Output} = iface.const;
 
 		this.canvas = document.createElement('canvas');
 		this.pixi = new PIXI.CanvasResource(this.canvas);
 
 		// This should be on property
-		node.output.Canvas = this.pixi;
+		Output.Canvas = this.pixi;
 
-		this.input.URL.on('value', Context.EventSlot, function(port){
-			gifler(port.value).get(function(anim){
+		IInput.URL.on('value', Context.EventSlot, function({ cable }){
+			gifler(cable.value).get(function(anim){
 				iface.gif = anim;
 				anim.onDrawFrame = function(ctx, frame){
 					ctx.drawImage(frame.buffer, 0, 0);
@@ -48,7 +49,7 @@ Context.IFace.GIF = class GIFIFace extends Blackprint.Interface {
 			});
 		});
 
-		this.input.URL.on('disconnect', Context.EventSlot, function(){
+		IInput.URL.on('disconnect', Context.EventSlot, function(){
 			iface.gif.stop();
 		});
 	}

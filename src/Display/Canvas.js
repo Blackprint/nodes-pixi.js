@@ -57,24 +57,24 @@ Context.IFace.Canvas = class CanvasIFace extends Blackprint.Interface {
 	initEvent(){
 		var My = this; // Shortcut
 		const {
-			IInput, IOutput, IProperty, // Port interface
-			Input, Output, Property, // Port value
+			IInput, IOutput, // Port interface
+			Input, Output, // Port value
 		} = My.const;
 
 		// target == Port from other node, this == Port from current node
-		IInput.Sprite.on('value', Context.EventSlot, function(target){
-			var child = Object.create(target.value);
+		IInput.Sprite.on('value', Context.EventSlot, function({ cable }){
+			var child = Object.create(cable.value);
 			child.parent = null;
 
-			My.childs.set(target.value, child);
+			My.childs.set(cable.value, child);
 			My.app.stage.addChild(child);
 
 			My.app.start();
 		});
 
-		IInput.Sprite.on('disconnect', Context.EventSlot, function(target){
-			var child = My.childs.get(target.value);
-			My.childs.delete(target.value);
+		IInput.Sprite.on('disconnect', Context.EventSlot, function({ cable }){
+			var child = My.childs.get(cable.value);
+			My.childs.delete(cable.value);
 
 			My.app.stage.removeChild(child);
 			if(this.cables.length === 0)
@@ -82,8 +82,8 @@ Context.IFace.Canvas = class CanvasIFace extends Blackprint.Interface {
 		});
 
 		IOutput.VideoTrack.on('connect', Context.EventSlot, function(){
-			My.mediaStream ??= My.canvas.captureStream();
-			Output.VideoTrack ??= My.mediaStream.getVideoTracks()[0];
+			My.mediaStream = My.canvas.captureStream();
+			Output.VideoTrack = My.mediaStream.getVideoTracks()[0];
 		});
 
 		IOutput.VideoTrack.on('disconnect', Context.EventSlot, function(){
