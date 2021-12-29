@@ -1,7 +1,7 @@
 {
   "name": "@blackprint/nodes-pixi.js",
   "description": "Blackprint nodes for Pixi.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -16,6 +16,7 @@
     "@blackprint/cli-tools": "0.3.x"
   },
   "keywords": [
-    "blackprint"
+    "blackprint",
+    "pixi.js"
   ]
 }
