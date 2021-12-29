@@ -62,7 +62,6 @@ class CanvasIFace extends Context.IFace.Canvas {
 
 	destroyClone(el){
 		// Destroy cloned Pixi App
-		var el = $('canvas', el)[0];
 		el.app.destroy();
 
 		this.app.ticker.remove(el.onPixiTicker);
