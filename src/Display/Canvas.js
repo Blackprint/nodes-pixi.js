@@ -59,7 +59,7 @@ Context.IFace.Canvas = class CanvasIFace extends Blackprint.Interface {
 		const {
 			IInput, IOutput, // Port interface
 			Input, Output, // Port value
-		} = My.const;
+		} = My.ref;
 
 		// target == Port from other node, this == Port from current node
 		IInput.Sprite.on('value', Context.EventSlot, function({ cable }){

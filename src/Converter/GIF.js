@@ -29,7 +29,7 @@ Context.IFace.GIF = class GIFIFace extends Blackprint.Interface {
 	init(){
 		let iface = this;
 		let node = this.node;
-		let {Input, IInput, Output} = iface.const;
+		let {Input, IInput, Output} = this.ref;
 
 		this.canvas = document.createElement('canvas');
 		this.pixi = new PIXI.CanvasResource(this.canvas);
