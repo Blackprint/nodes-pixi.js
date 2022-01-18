@@ -1,7 +1,7 @@
 {
   "name": "@blackprint/nodes-pixi.js",
   "description": "Blackprint nodes for Pixi.js",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,10 +10,17 @@
   "module": "dist/nodes-pixi.min.mjs",
   "scripts": {
     "start": "blackprint serve",
+    "test": "jest ./tests/",
     "build-prod": "blackprint build production"
   },
+  "dependencies": {
+    "@blackprint/engine": "0.5.x",
+    "@blackprint/sketch": "0.5.x",
+    "scarletsframe": "0.35.x"
+  },
   "devDependencies": {
-    "@blackprint/cli-tools": "0.3.x"
+    "@blackprint/cli-tools": "0.3.x",
+    "jest": "^27.4"
   },
   "keywords": [
     "blackprint",
