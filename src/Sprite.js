@@ -1,36 +1,37 @@
+let _Port = Blackprint.Port;
+
 Blackprint.registerNode('Pixi.js/Sprite',
 class SpriteNode extends Blackprint.Node {
+	static input = {
+		Source: _Port.Union([
+			String,
+			HTMLImageElement,
+			HTMLCanvasElement,
+			HTMLVideoElement,
+			SVGElement,
+			PIXI.CanvasResource,
+			PIXI.Texture
+		]),
+		x: _Port.Default(Number, 0),
+		y: _Port.Default(Number, 0),
+		ScaleX: _Port.Default(Number, 1),
+		ScaleY: _Port.Default(Number, 1),
+		Rotate: _Port.Default(Number, 0),
+		// SkewX: _Port.Default(Number, 0),
+		// SkewY: _Port.Default(Number, 0),
+		// PivotX: _Port.Default(Number, 0),
+		// PivotY: _Port.Default(Number, 0),
+	};
+
+	static output = {
+		Sprite: PIXI.Sprite,
+	}
+
 	constructor(instance){
 		super(instance);
 
 		let iface = this.setInterface('BPIC/Pixi.js/Sprite');
 		iface.title = 'Sprite';
-
-		let Port = Blackprint.Port;
-		this.input = {
-			Source: Port.Union({ // Use object so we can see the real name when minified
-				String,
-				HTMLImageElement,
-				HTMLCanvasElement,
-				HTMLVideoElement,
-				SVGElement,
-				PIXICanvasResource: PIXI.CanvasResource,
-				PIXITexture: PIXI.Texture
-			}),
-			x: Port.Default(Number, 0),
-			y: Port.Default(Number, 0),
-			ScaleX: Port.Default(Number, 1),
-			ScaleY: Port.Default(Number, 1),
-			Rotate: Port.Default(Number, 0),
-			// SkewX: Port.Default(Number, 0),
-			// SkewY: Port.Default(Number, 0),
-			// PivotX: Port.Default(Number, 0),
-			// PivotY: Port.Default(Number, 0),
-		};
-
-		this.output = {
-			Sprite: PIXI.Sprite,
-		}
 	}
 
 	update(){

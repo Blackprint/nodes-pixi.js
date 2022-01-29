@@ -1,24 +1,24 @@
 Blackprint.registerNode('Pixi.js/Display/Canvas',
 class CanvasNode extends Blackprint.Node {
+	static input = {
+		Sprite: Blackprint.Port.ArrayOf(PIXI.Sprite),
+		Start: Blackprint.Port.Trigger(function(){
+			this.iface.app.ticker.start();
+		}),
+		Stop: Blackprint.Port.Trigger(function(){
+			this.iface.app.ticker.stop();
+		}),
+	}
+
+	static output = {
+		VideoTrack: MediaStreamTrack
+	}
+
 	constructor(instance){
 		super(instance);
 
 		let iface = this.setInterface('BPIC/Pixi.js/Display/Canvas');
 		iface.title = 'Display Canvas';
-
-		this.input = {
-			Sprite: Blackprint.Port.ArrayOf(PIXI.Sprite),
-			Start: Blackprint.Port.Trigger(function(){
-				iface.app.ticker.start();
-			}),
-			Stop: Blackprint.Port.Trigger(function(){
-				iface.app.ticker.stop();
-			}),
-		}
-
-		this.output = {
-			VideoTrack: MediaStreamTrack
-		}
 	}
 });
 

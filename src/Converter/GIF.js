@@ -1,18 +1,13 @@
 Blackprint.registerNode('Pixi.js/Converter/GIF',
 class GIFNode extends Blackprint.Node {
+	static input = { URL: String }
+	static output = { Canvas: PIXI.CanvasResource }
+
 	constructor(instance){
 		super(instance);
 
 		let iface = this.setInterface('BPIC/Pixi.js/Converter/GIF');
 		iface.title = 'GIF Player';
-
-		this.input = {
-			URL: String
-		}
-
-		this.output = {
-			Canvas: PIXI.CanvasResource
-		}
 	}
 });
 
