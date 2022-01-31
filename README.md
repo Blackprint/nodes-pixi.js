@@ -10,7 +10,7 @@ Please specify the version to avoid breaking changes.
 
 ```js
 Blackprint.loadModuleFromURL([
-	'https://cdn.jsdelivr.net/npm/@blackprint/nodes-pixi.js@0.1.0/dist/nodes-pixijs.mjs'
+	'https://cdn.jsdelivr.net/npm/@blackprint/nodes-pixi.js@0.3/dist/nodes-pixijs.mjs'
 ], {
 	// Turn this on if you want to load .sf.js, and .sf.css
 	// only with single .mjs
