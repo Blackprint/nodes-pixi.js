@@ -1,5 +1,6 @@
 ## html
 <div class="node" style="transform: translate({{ x }}px, {{ y }}px)">
+  <sf-template path="Blackprint/nodes/template/routes.sf"></sf-template>
   <sf-template path="Blackprint/nodes/template/header.sf"></sf-template>
 
   <div class="content">
@@ -62,7 +63,7 @@ class CanvasIFace extends Context.IFace.Canvas {
 
 	destroyClone(el){
 		// Destroy cloned Pixi App
-		el.app.destroy();
+		el.app?.destroy();
 
 		this.app.ticker.remove(el.onPixiTicker);
 	}

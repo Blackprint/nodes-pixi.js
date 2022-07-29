@@ -1,7 +1,17 @@
+/**
+ * Convert and play GIF into Pixi's CanvasResource
+ * @blackprint node
+ */
 Blackprint.registerNode('Pixi.js/Converter/GIF',
 class GIFNode extends Blackprint.Node {
-	static input = { URL: String }
-	static output = { Canvas: PIXI.CanvasResource }
+	static input = {
+		/** URL to GIF file */
+		URL: String,
+	}
+	static output = {
+		/** Pixi's CanvasResource */
+		Canvas: PIXI.CanvasResource,
+	}
 
 	constructor(instance){
 		super(instance);
@@ -23,8 +33,7 @@ Context.IFace.GIF = class GIFIFace extends Blackprint.Interface {
 
 	init(){
 		let iface = this;
-		let node = this.node;
-		let {Input, IInput, Output} = this.ref;
+		let { IInput, Output } = this.ref;
 
 		this.canvas = document.createElement('canvas');
 		this.pixi = new PIXI.CanvasResource(this.canvas);

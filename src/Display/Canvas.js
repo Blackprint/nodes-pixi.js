@@ -1,17 +1,26 @@
+/**
+ * Canvas node for diplaying sprites
+ * @blackprint node
+ * @summary Pixi.js
+ */
 Blackprint.registerNode('Pixi.js/Display/Canvas',
 class CanvasNode extends Blackprint.Node {
 	static input = {
+		/** Sprites that will be displayed into this canvas */
 		Sprite: Blackprint.Port.ArrayOf(PIXI.Sprite),
+		/** Start rendering */
 		Start: Blackprint.Port.Trigger(function(){
 			this.iface.app.ticker.start();
 		}),
+		/** Stop rendering */
 		Stop: Blackprint.Port.Trigger(function(){
 			this.iface.app.ticker.stop();
 		}),
 	}
 
 	static output = {
-		VideoTrack: MediaStreamTrack
+		/** MediaStream track */
+		VideoTrack: MediaStreamTrack,
 	}
 
 	constructor(instance){
@@ -77,7 +86,7 @@ Context.IFace.Canvas = class CanvasIFace extends Blackprint.Interface {
 			My.childs.delete(cable.value);
 
 			My.app.stage.removeChild(child);
-			if(this.cables.length === 0)
+			if(IInput.Sprite.cables.length === 0)
 				My.app.stop();
 		});
 

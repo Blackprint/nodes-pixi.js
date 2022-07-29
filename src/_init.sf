@@ -8,7 +8,7 @@
 // This will return same module reference if already being loaded on ./init.js
 // And only being loaded once
 var [PIXI] = await imports([
-    "https://cdn.jsdelivr.net/npm/pixi.js-legacy@6.2.0/dist/browser/pixi-legacy.min.mjs",
+    "https://cdn.jsdelivr.net/npm/pixi.js-legacy@6.x/dist/browser/pixi-legacy.min.mjs",
 ]);
 
 // Wait until all dependencies ready

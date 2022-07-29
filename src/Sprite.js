@@ -1,8 +1,14 @@
 let _Port = Blackprint.Port;
 
+/**
+ * Create a sprite from media source
+ * @blackprint node
+ * @summary Pixi.js
+ */
 Blackprint.registerNode('Pixi.js/Sprite',
 class SpriteNode extends Blackprint.Node {
 	static input = {
+		/** Target media source */
 		Source: _Port.Union([
 			String,
 			HTMLImageElement,
@@ -12,10 +18,15 @@ class SpriteNode extends Blackprint.Node {
 			PIXI.CanvasResource,
 			PIXI.Texture
 		]),
+		/** Adjust the position in x-axis */
 		x: _Port.Default(Number, 0),
+		/** Adjust the position in y-axis */
 		y: _Port.Default(Number, 0),
+		/** Adjust the scale in x-axis */
 		ScaleX: _Port.Default(Number, 1),
+		/** Adjust the scale in y-axis */
 		ScaleY: _Port.Default(Number, 1),
+		/** Rotate the rendered sprite */
 		Rotate: _Port.Default(Number, 0),
 		// SkewX: _Port.Default(Number, 0),
 		// SkewY: _Port.Default(Number, 0),
@@ -24,6 +35,7 @@ class SpriteNode extends Blackprint.Node {
 	};
 
 	static output = {
+		/** Pixi's sprite object */
 		Sprite: PIXI.Sprite,
 	}
 

@@ -8,7 +8,7 @@ if(!window.Blackprint.Environment.isBrowser){
 
 var [  , PIXI] = await imports([
     "https://cdn.jsdelivr.net/npm/gifler@0.1.0/gifler.min.js",
-    "https://cdn.jsdelivr.net/npm/pixi.js-legacy@6.2.2/dist/browser/pixi-legacy.min.mjs",
+    "https://cdn.jsdelivr.net/npm/pixi.js-legacy@6.x/dist/browser/pixi-legacy.min.mjs",
 ]);
 
 let Blackprint = window.Blackprint.loadScope({
@@ -18,6 +18,9 @@ let Blackprint = window.Blackprint.loadScope({
 
 	// This will autoload (*.sf.mjs) and (*.sf.css) file for Browser
 	hasInterface: true,
+
+	// This will autoload (*.docs.json) for Browser
+	hasDocs: true,
 });
 
 // Global shared context
