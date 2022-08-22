@@ -9,12 +9,12 @@ class CanvasNode extends Blackprint.Node {
 		/** Sprites that will be displayed into this canvas */
 		Sprite: Blackprint.Port.ArrayOf(PIXI.Sprite),
 		/** Start rendering */
-		Start: Blackprint.Port.Trigger(function(){
-			this.iface.app.ticker.start();
+		Start: Blackprint.Port.Trigger(function({ iface }){
+			iface.app.ticker.start();
 		}),
 		/** Stop rendering */
-		Stop: Blackprint.Port.Trigger(function(){
-			this.iface.app.ticker.stop();
+		Stop: Blackprint.Port.Trigger(function({ iface }){
+			iface.app.ticker.stop();
 		}),
 	}
 

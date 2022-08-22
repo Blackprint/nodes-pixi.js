@@ -83,10 +83,12 @@ Context.IFace.Sprite = class SpriteIFace extends Blackprint.Interface{
 			.on('value', Context.EventSlot, function(){
 				node.output.Sprite.texture = PIXI.Texture.from(node.input.Source);
 				node.update();
+				node.routes.routeOut();
 			})
 			.on('disconnect', Context.EventSlot, function(){
 				var sprite = node.output.Sprite;
 				sprite.texture = sprite._emptyTexture;
+				node.routes.routeOut();
 			});
 	}
 });

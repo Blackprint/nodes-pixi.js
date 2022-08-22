@@ -34,6 +34,7 @@ Context.IFace.GIF = class GIFIFace extends Blackprint.Interface {
 	init(){
 		let iface = this;
 		let { IInput, Output } = this.ref;
+		let node = iface.node;
 
 		this.canvas = document.createElement('canvas');
 		this.pixi = new PIXI.CanvasResource(this.canvas);
@@ -50,11 +51,13 @@ Context.IFace.GIF = class GIFIFace extends Blackprint.Interface {
 				}
 
 				anim.animateInCanvas(iface.canvas);
+				node.routes.routeOut();
 			});
 		});
 
 		IInput.URL.on('disconnect', Context.EventSlot, function(){
 			iface.gif.stop();
+			node.routes.routeOut();
 		});
 	}
 });
