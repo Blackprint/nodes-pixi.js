@@ -81,9 +81,9 @@ Context.IFace.Canvas = class CanvasIFace extends Blackprint.Interface {
 			My.app.start();
 		});
 
-		IInput.Sprite.on('disconnect', Context.EventSlot, function({ cable }){
-			var child = My.childs.get(cable.value);
-			My.childs.delete(cable.value);
+		IInput.Sprite.on('disconnect', Context.EventSlot, function({ target }){
+			var child = My.childs.get(target.value);
+			My.childs.delete(target.value);
 
 			My.app.stage.removeChild(child);
 			if(IInput.Sprite.cables.length === 0)
