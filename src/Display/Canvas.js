@@ -34,16 +34,19 @@ class CanvasNode extends Blackprint.Node {
 var canvasFirstInit = true;
 Blackprint.registerInterface('BPIC/Pixi.js/Display/Canvas',
 Context.IFace.Canvas = class CanvasIFace extends Blackprint.Interface {
-	init(){
+	async init(){
 		// Initialize and save data to iface
 		// So it can persist if current scope is hot reloaded
 
 		let time;
 		if(canvasFirstInit) time = Date.now();
 
-		this.app = new PIXI.Application(); // First init could be slow
-		this.app.ticker.maxFPS = 25;
-		this.app.ticker.minFPS = 1;
+		this.app = new PIXI.Application();
+		await this.app.init({
+			background: '#1099bb',
+			autoStart: false,
+			//resizeTo: window
+		});
 
 		if(canvasFirstInit){
 			let info = "Pixi.js init time: "+(Date.now() - time)+'ms';
@@ -53,13 +56,9 @@ Context.IFace.Canvas = class CanvasIFace extends Blackprint.Interface {
 		}
 
 		this.container = this.app.stage;
-		this.canvas = this.app.view;
-		this.childs = new Map();
+		this.canvas = this.app.canvas;
 
 		this.app.renderer.resize(512, 256);
-		this.app.stop();
-		this.app.ticker.stop();
-
 		this.initEvent();
 	}
 
@@ -72,20 +71,14 @@ Context.IFace.Canvas = class CanvasIFace extends Blackprint.Interface {
 
 		// target == Port from other node, this == Port from current node
 		IInput.Sprite.on('value', Context.EventSlot, function({ cable }){
-			var child = Object.create(cable.value);
-			child.parent = null;
+			if(!cable.value || cable.value.length === 0) return;
 
-			My.childs.set(cable.value, child);
-			My.app.stage.addChild(child);
-
+			My.app.stage.addChild(cable.value);
 			My.app.start();
 		});
 
 		IInput.Sprite.on('disconnect', Context.EventSlot, function({ target }){
-			var child = My.childs.get(target.value);
-			My.childs.delete(target.value);
-
-			My.app.stage.removeChild(child);
+			My.app.stage.removeChild(target.value);
 			if(IInput.Sprite.cables.length === 0)
 				My.app.stop();
 		});

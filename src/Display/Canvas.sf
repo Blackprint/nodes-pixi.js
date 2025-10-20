@@ -34,17 +34,16 @@ bpic-pixi-js-display-canvas {
 ## js-global
 Blackprint.Sketch.registerInterface('BPIC/Pixi.js/Display/Canvas',
 class CanvasIFace extends Context.IFace.Canvas {
-	init(el){
-		super.init(el);
+	async init(el){
+		await super.init(el);
 
 		$(this.canvas).insertBefore(this.$el('.left-port')[0]);
 	}
 
 	// If current component is being used on multiple container
 	initClone(el){
-		var app = new PIXI.Renderer();
+		var app = new PIXI.Renderer({ width: this.canvas.width, height: this.canvas.height });
 		$(app.view).insertBefore($('.left-port', el)[0]);
-		app.resize(this.canvas.width, this.canvas.height);
 
 		let My = this;
 

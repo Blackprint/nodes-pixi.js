@@ -4,23 +4,26 @@
 // This script will run first, and then the other .sf files
 // depends on blackprint.config.js configuration
 
-// Load dependencies and wait until everything ready
-// This will return same module reference if already being loaded on ./init.js
-// And only being loaded once
-var [PIXI] = await imports([
-    "https://cdn.jsdelivr.net/npm/pixi.js-legacy@6.x/dist/browser/pixi-legacy.min.mjs",
-]);
-
-// Wait until all dependencies ready
-// ./init.js is loading Pixi.js
-await imports.task();
-
 // Because .js and .sf is separated
 // we also need to call loadScope just like _init.js
 let Blackprint = window.Blackprint.loadScope({
 	// You can find the URL on Blackprint menu -> Modules
 	// This will also be exported to JSON if this module's nodes is being used
 	url: import.meta.url,
+});
+
+// Load dependencies and wait until everything ready
+// This will return same module reference if already being loaded on ./init.js
+var [ PIXI ] = await Blackprint.DepsLoader.js({
+	window: ['PIXI'],
+
+	// need to use 'npm install' first or must exist on node_modules, will dynamically imported
+	local: ['pixi.js'],
+
+	// for browser, Deno, or supported environment that have internet access
+	cdn: [
+		"https://cdn.jsdelivr.net/npm/pixi.js@8.14.0/dist/pixi.min.mjs",
+	]
 });
 
 // Use sQuery

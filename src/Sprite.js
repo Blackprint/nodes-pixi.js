@@ -1,5 +1,3 @@
-let _Port = Blackprint.Port;
-
 /**
  * Create a sprite from media source
  * @blackprint node
@@ -9,29 +7,28 @@ Blackprint.registerNode('Pixi.js/Sprite',
 class SpriteNode extends Blackprint.Node {
 	static input = {
 		/** Target media source */
-		Source: _Port.Union([
+		Source: Blackprint.Port.Union([
 			String,
 			HTMLImageElement,
 			HTMLCanvasElement,
 			HTMLVideoElement,
 			SVGElement,
-			PIXI.CanvasResource,
 			PIXI.Texture
 		]),
 		/** Adjust the position in x-axis */
-		x: _Port.Default(Number, 0),
+		x: Blackprint.Port.Default(Number, 0),
 		/** Adjust the position in y-axis */
-		y: _Port.Default(Number, 0),
+		y: Blackprint.Port.Default(Number, 0),
 		/** Adjust the scale in x-axis */
-		ScaleX: _Port.Default(Number, 1),
+		ScaleX: Blackprint.Port.Default(Number, 1),
 		/** Adjust the scale in y-axis */
-		ScaleY: _Port.Default(Number, 1),
+		ScaleY: Blackprint.Port.Default(Number, 1),
 		/** Rotate the rendered sprite */
-		Rotate: _Port.Default(Number, 0),
-		// SkewX: _Port.Default(Number, 0),
-		// SkewY: _Port.Default(Number, 0),
-		// PivotX: _Port.Default(Number, 0),
-		// PivotY: _Port.Default(Number, 0),
+		Rotate: Blackprint.Port.Default(Number, 0),
+		// SkewX: Blackprint.Port.Default(Number, 0),
+		// SkewY: Blackprint.Port.Default(Number, 0),
+		// PivotX: Blackprint.Port.Default(Number, 0),
+		// PivotY: Blackprint.Port.Default(Number, 0),
 	};
 
 	static output = {
@@ -50,17 +47,17 @@ class SpriteNode extends Blackprint.Node {
 		if(this.iface.input.Source.cables.length === 0)
 			return;
 
-		this.output.Sprite.setTransform(
-			this.input.x,
-			this.input.y,
-			this.input.ScaleX,
-			this.input.ScaleY,
-			this.input.Rotate,
-			// this.input.SkewX,
-			// this.input.SkewY,
-			// this.input.PivotX,
-			// this.input.PivotY,
-		);
+		this.output.Sprite.updateTransform({
+			x: this.input.x,
+			y: this.input.y,
+			scaleX: this.input.ScaleX,
+			scaleY: this.input.ScaleY,
+			rotate: this.input.Rotate,
+			// skewX: this.input.SkewX,
+			// skewY: this.input.SkewY,
+			// pivotX: this.input.PivotX,
+			// pivotY: this.input.PivotY,
+		});
 	}
 });
 

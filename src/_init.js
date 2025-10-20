@@ -6,11 +6,6 @@ if(!window.Blackprint.Environment.isBrowser){
 	return;
 }
 
-var [  , PIXI] = await imports([
-    "https://cdn.jsdelivr.net/npm/gifler@0.1.0/gifler.min.js",
-    "https://cdn.jsdelivr.net/npm/pixi.js-legacy@6.x/dist/browser/pixi-legacy.min.mjs",
-]);
-
 let Blackprint = window.Blackprint.loadScope({
 	// You can find the URL on Blackprint menu -> Modules
 	// This will also be exported to JSON if this module's nodes is being used
@@ -23,6 +18,24 @@ let Blackprint = window.Blackprint.loadScope({
 	hasDocs: true,
 });
 
+var [ PIXI, PIXIGif, PIXIBlendModes ] = await Blackprint.DepsLoader.js({
+	window: ['PIXI', 'PIXIGif', 'PIXIBlendModes'],
+
+	// need to use 'npm install' first or must exist on node_modules, will dynamically imported
+	local: ['pixi.js', 'pixi.js/gif', 'pixi.js/advanced-blend-modes'],
+
+	// for browser, Deno, or supported environment that have internet access
+	cdn: [
+		"https://cdn.jsdelivr.net/npm/pixi.js@8.14.0/+esm",
+		"https://cdn.jsdelivr.net/npm/pixi.js@8.14.0/gif/+esm",
+		"https://cdn.jsdelivr.net/npm/pixi.js@8.14.0/advanced-blend-modes/+esm",
+	]
+});
+
+PIXI.extensions.add(PIXI.TickerPlugin);
+PIXI.extensions.add(PIXIGif.GifAsset);
+Object.setPrototypeOf(PIXIGif.GifSprite.prototype, PIXI.Sprite.prototype); // Fix type error
+
 // Global shared context
 let Context = Blackprint.createContext('Pixi.js');
 
@@ -32,7 +45,6 @@ Context.EventSlot = {slot: 'my-private-event-slot'};
 
 // Fix minified class name
 Blackprint.utils.renameTypeName({
-	'CanvasResource': PIXI.CanvasResource,
 	'Texture': PIXI.Texture,
 	'Sprite': PIXI.Sprite,
 });
