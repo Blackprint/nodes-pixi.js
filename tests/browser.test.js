@@ -2,19 +2,15 @@
  * @jest-environment jsdom
  */
 
-require("@blackprint/engine");
-
 // === For Browser Environment ===
 window.ResizeObserver = class{};
-window.sf = require("scarletsframe/dist/scarletsframe.min.js");
+
+// This will automatically load ScarletsFrame + Engine + Sketch
+require("@blackprint/sketch");
 
 // Disable loader for browser, because we're testing with Node.js
 sf.loader.turnedOff = true;
 sf.loader.task = false;
-
-require("@blackprint/sketch/dist/blackprint.min.js");
-require("@blackprint/sketch/dist/blackprint.sf.js");
-// === For Browser Environment ===
 
 let instance = null;
 test('Blackprint.Sketch does exist on window', async () => {
